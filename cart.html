@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="e" >
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./main.css">
+  <link rel='stylesheet' href='https://unpkg.com/tailwindcss@0.4.1/dist/tailwind.min.css'>
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container font-sans antialiased">
+  <header class="page-header">
+  <nav class="flex items-center justify-between flex-wrap bg-teal p-6">
+    <div class="branding flex items-center flex-no-shrink text-white mr-6">
+      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+      <span class="font-semibold text-xl tracking-tight">Prueba Ban PAY</span>
+    </div>
+  </nav>
+  </header>
+
+<div id="app">
+<br>
+<div><center><a href="index.html" class="btn btn-info"><i class="glyphicon glyphicon-shopping-cart"></i>Home</a><center></div>
+    
+  <div class="grid">
+    <div class="col-sx">
+      <div class="products">
+        <h2>Producto</h2>
+        <ul class="products-list">
+          <li class="product" v-for="(prod, ind) in products" :key="'ind-' + ind">
+            <div class="box">
+              <div class="image"></div>
+              <h3 class="title">{{ prod.name }}</h3>
+              <p class="price">{{ prod.price | currency }}</p>
+              <p class="price">{{ prod.inventary}}</p>
+              <button @click="addItem(prod)">Agegar al carrito</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-dx">
+      <div class="cart">
+        <h2>Carrito</h2>
+        <table class="cart-list" v-if="cart.length">
+          <thead>
+            <tr>
+              <th class="head-title">Producto</th>
+              <th class="head-price">Precio</th>
+              <th class="head-quantity">Cantidad</th>
+              <th class="head-total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cart-item" v-for="(item, id) in cart" :key="'id-' + id">
+              <td>
+                <h4 class="title">{{ item.name }}</h4>
+              </td>
+              <td>
+                <div class="price">{{ item.price | currency }}</div>
+              </td>
+              <td>
+                <div class="quantity">
+                   {{ item.quantity }}<span class="qty-handler"><span @click="add(item)">+</span><span @click="sub(item)">-</span></span></div>
+              </td>
+              <td>
+                <div class="total">{{ item.price * item.quantity | currency }}</div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3">
+                <h4 class="total-title">Total</h4>
+              </th>
+              <th>{{ total | currency }}</th>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="empty-contents" v-else="v-else">
+          <br><br><br>
+          <br>
+          <div class="head">
+            <div class="face face__sad">
+              <div class="eye-left"></div>
+              <div class="eye-right"></div>
+              <div class="mouth"></div>
+            </div>
+          </div>
+          <br><br><br>
+          <center><p class="no-items-text">El carrito se encuntra vacío</p></center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js'></script><script  src="./main.js"></script>
+
+</body>
+</html>

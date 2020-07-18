@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Productos</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
+  <link rel='stylesheet' href='https://unpkg.com/tailwindcss@0.4.1/dist/tailwind.min.css'>
+
+</head>
+<body>
+
+<div class="container font-sans antialiased">
+  <header class="page-header">
+  <nav class="flex items-center justify-between flex-wrap bg-teal p-6">
+    <div class="branding flex items-center flex-no-shrink text-white mr-6">
+      <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+      <span class="font-semibold text-xl tracking-tight">Prueba Ban PAY</span>
+    </div>
+  </nav>
+  </header>
+  <main id="app">
+    <router-view></router-view>
+  </main>
+</div>
+
+<template id="product-list">
+  <div>
+    <div class="actions">
+      <center>
+        <b-container class="bv-example-row">
+          <b-row>
+            <b-col lg="4">
+              <router-link class="btn btn-info" size="lg" v-bind:to="{path: '/add-product'}">
+                <span class="glyphicon glyphicon-plus"></span>
+                Agregar Producto
+              </router-link>
+            </b-col>
+            <b-col lg="4">
+              <a href="cart.html" class="btn btn-info"><i class="glyphicon glyphicon-shopping-cart"></i>Comprar</a>
+            </b-col>
+          </b-row>
+        </b-container>
+      </center>
+    </div>
+    <div class="filters row">
+      <div class="form-group col-sm-3">
+        <label for="search-element">Nombre del Producto</label>
+        <input v-model="searchKey" class="form-control" id="search-element" requred/>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Inventario</th>
+        <th>Precio</th>
+        <th class="col-sm-2">Opciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="product in filteredProducts">
+        <td>
+          <router-link v-bind:to="{name: 'product', params: {product_id: product.id}}">{{ product.name }}</router-link>
+        </td>
+        <td>{{ product.inventary }}</td>
+        <td>
+          <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          {{ product.price }}
+        </td>
+        <td>
+          <router-link class="btn btn-warning btn-xs" v-bind:to="{name: 'product-edit', params: {product_id: product.id}}">Editar</router-link>
+          <router-link class="btn btn-danger btn-xs" v-bind:to="{name: 'product-delete', params: {product_id: product.id}}">Borrar</router-link>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template id="add-product">
+  <div>
+    <h2>Agregar nuevo producto</h2>
+    <br>
+    <form v-on:submit="createProduct">
+      <div class="form-group">
+        <label for="add-name">Nombre</label>
+        <input class="form-control" id="add-name" v-model="product.name" required/>
+      </div>
+      <div class="form-group">
+        <label for="add-description">Inventario</label>
+        <input type="number" min="0" class="form-control currency" id="add-inventary" v-model="product.inventary"/>
+      </div>
+      <div class="form-group">
+        <label for="add-price"><span class="glyphicon glyphicon-usd"></span>Precio</label>
+        <input type="number" value="1000" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="add-price" v-model="product.price"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar</button>
+      <router-link class="btn btn-default" v-bind:to="'/'">Cancelar</router-link>
+    </form>
+  </div>
+</template>
+
+<template id="show-product">
+
+</template>
+
+<template id="product">
+  <div>
+    <h2>{{ product.name }}</h2>
+    <br>
+    <b>Precio </b>
+    <div>{{ product.inventary }}</div>
+    <br>
+    <b>Inventario</b>
+    <div>{{ product.price }}<span class="glyphicon glyphicon-usd"></span></div>
+    <br/>
+    <span aria-hidden="true"></span>
+    <router-link v-bind:to="'/'">Regresar a la lista</router-link>
+  </div>
+</template>
+
+<template id="product-edit">
+  <div>
+    <h2>Editar producto</h2>
+    <br>
+    <form v-on:submit="updateProduct">
+      <div class="form-group">
+        <label for="edit-name">Nombre</label>
+        <input class="form-control" id="edit-name" v-model="product.name" required/>
+      </div>
+      <div class="form-group">
+        <label for="edit-price">Precio<span class="glyphicon glyphicon-usd"></label>
+        <input type="number" value="1000" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency"  id="edit-price"  v-model="product.price">
+      </div>
+      <div class="form-group">
+        <label for="edit-inventary">Inventario</span></label>
+        <input type="number" class="form-control" id="edit-inventary" v-model="product.inventary"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <router-link class="btn btn-default" v-bind:to="'/'">Cancelar</router-link>
+    </form>
+  </div>
+</template>
+
+<template id="product-delete">
+  <div>
+    <h2>Borrar producto {{ product.name }}</h2>
+    <br>
+    <form v-on:submit="deleteProduct">
+      <button type="submit" class="btn btn-danger">Borrar</button>
+      <router-link class="btn btn-default" v-bind:to="'/'">Cancelar</router-link>
+    </form>
+  </div>
+</template>
+
+</body>
+</html>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
