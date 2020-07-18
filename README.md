@@ -4,40 +4,36 @@
 
 # Prueba técnica Ban PAY
 
-_Desarrollo de simulación carrito de compras de un ecommerce_
+_Desarrollo de simulación carrito de compras de un ecommerce con Vue_
 
 ## Comenzando 🚀
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-Mira **Deployment** para conocer como desplegar el proyecto.
 
 
 ### Pre-requisitos 📋
 
-_Que cosas necesitas para instalar el software y como instalarlas_
+_Git_
 
 ```
-se necesita git
+https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git
 
 ```
 
 ### Instalación 🔧
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
 
-_Dí cómo será ese paso_
+_Copiar en una terminal el siguiente comando_
 
 ```
 git clonehttps://github.com/Serch93/BanPAY.git
 
 ```
 
-_Y repite_
-
 ```
 abrir el archivo index.html en cualquier navegador
 ```
 
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
+
 
