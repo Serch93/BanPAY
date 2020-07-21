@@ -16,10 +16,25 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 
 _Git_
 
+_node js_
+
+_npm_
+
+_live-server_
+
+
+
 ```
 https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git
 
 ```
+
+```
+https://nodejs.org/es/
+
+```
+
+
 
 ### Instalación 🔧
 
@@ -30,9 +45,13 @@ _Copiar en una terminal el siguiente comando_
 git clonehttps://github.com/Serch93/BanPAY.git
 
 ```
+```
+npm install -g live-server
 
 ```
-abrir el archivo index.html en cualquier navegador
+
+```
+live-server
 ```
 
 
